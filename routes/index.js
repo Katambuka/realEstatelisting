@@ -5,7 +5,7 @@ const router = require('express').Router();
 router.use('/listings', require('./users'));
 
 router.get('/', (req, res) => {
-  res.send('Hello Instructor, this is my week three project, I will add on for next week');
+  res.send('Hello Instructor, this is my week three project, I will update swagger next week');
 });
 
 module.exports = router;
