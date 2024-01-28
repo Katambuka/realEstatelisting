@@ -2,6 +2,7 @@ const mongodb = require('../data/database');
 const ObjectId  = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
+   //#swagger.tags =['Users]
   try {
     const result = await mongodb.getDatabase().db('').collection('listings').find().toArray();
     res.json(result);
@@ -12,6 +13,7 @@ const getAll = async (req, res) => {
 };
 
 const getSingle = async (req, res) => {
+   //#swagger.tags =['Users]
   try {
     const listingId = new ObjectId(req.params.id);
     const result = await mongodb.getDatabase().db().collection('listings').findOne({ _id: listingId });
@@ -25,8 +27,9 @@ const getSingle = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-/*
+
 const createListing = async (req, res) => {
+   //#swagger.tags =['Users]
   const listing = {
     title: req.body.title,
     location: req.body.location,
@@ -37,7 +40,7 @@ const createListing = async (req, res) => {
   };
 
   try {
-    const response = await mongodb.getDatabase().db('project2').collection('listings').insertOne(listing);
+    const response = await mongodb.getDatabase().db().collection('listings').insertOne(listing);
     if (response.acknowledged > 0) {
       res.status(204).send();
     } else {
@@ -50,6 +53,7 @@ const createListing = async (req, res) => {
 };
 
 const updateListing = async (req, res) => {
+   //#swagger.tags =['Users]
   const listingId = new ObjectId(req.params.id);
   const listing = {
     title: req.body.title,
@@ -61,7 +65,7 @@ const updateListing = async (req, res) => {
   };
 
   try {
-    const response = await mongodb.getDatabase().db('project2').collection('listings').replaceOne({ _id: listingId }, listing);
+    const response = await mongodb.getDatabase().db().collection('listings').replaceOne({ _id: listingId }, listing);
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } else {
@@ -74,10 +78,10 @@ const updateListing = async (req, res) => {
 };
 
 const deleteListing = async (req, res) => {
+   //#swagger.tags =['Users]
   const listingId = new ObjectId(req.params.id);
-
   try {
-    const response = await mongodb.getDatabase().db('project2').collection('listings').deleteOne({ _id: listingId });
+    const response = await mongodb.getDatabase().db().collection('listings').deleteOne({ _id: listingId });
     if (response.deletedCount > 0) {
       res.status(204).send();
     } else {
@@ -87,13 +91,12 @@ const deleteListing = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-}; */
+}; 
 
 module.exports = {
   getAll,
   getSingle,
-  /*
   createListing,
   updateListing,
-  deleteListing,*/
+  deleteListing
 };

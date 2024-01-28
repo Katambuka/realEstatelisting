@@ -1,0 +1,22 @@
+
+getAll: Fetches all listings.
+URL: http://localhost:8000/listings HTTP/1.1
+Method: GET
+
+getSingle: Fetches a single listing by its ID.
+URL: http://localhost:8000/listings/:id HTTP/1.1
+Method: GET
+
+createListing: Creates a new listing.
+URL: POST http://localhost:8000/listings HTTP/1.1
+Method: POST
+
+Expects a JSON object in the request body with details of the new listing.
+updateListing: Updates a listing by its ID.
+URL: http://localhost:8000/listings/:id HTTP/1.1
+Method: PUT
+
+Expects a JSON object in the request body with updated details for the listing identified by :id.
+deleteListing: Deletes a listing by its ID.
+URL: http://localhost:8000/listings/:id HTTP/1.1
+Method: DELETE
