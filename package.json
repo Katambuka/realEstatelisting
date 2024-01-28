@@ -11,5 +11,10 @@
     "url": "https://github.com/katambuka/"
   },
   "author": "Nathank",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0"
+  }
 }
