@@ -1,22 +1,17 @@
+//GET all users:
 
-getAll: Fetches all listings.
-URL: http://localhost:8000/listings HTTP/1.1
-Method: GET
+Get: http://localhost:8000/listingsHTTP/1.1 //Returns a JSON array of user objects.
 
-getSingle: Fetches a single listing by its ID.
-URL: http://localhost:8000/listings/:id HTTP/1.1
-Method: GET
+//GET a single user by ID:
 
-createListing: Creates a new listing.
-URL: POST http://localhost:8000/listings HTTP/1.1
-Method: POST
+GET : http://localhost:8000/listings/HTTP/1.1
 
-Expects a JSON object in the request body with details of the new listing.
-updateListing: Updates a listing by its ID.
-URL: http://localhost:8000/listings/:id HTTP/1.1
-Method: PUT
+//POST (Create) a new user:
 
-Expects a JSON object in the request body with updated details for the listing identified by :id.
-deleteListing: Deletes a listing by its ID.
-URL: http://localhost:8000/listings/:id HTTP/1.1
-Method: DELETE
+URL: http://localhost:8000/listings //HTTP Method: POST
+
+//PUT (Update) a user by ID:
+
+URL: http://localhost:8000/:id //HTTP Method: PUT
+
+//DELETE a user by ID: URL: http://localhost:8000/:id //HTTP Method: DELETE

@@ -1,97 +1,96 @@
 const mongodb = require('../data/database');
-const ObjectId  = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
+
+const sendErrorResponse = (res, statusCode, message) =>
+  res.status(statusCode).json({ error: message });
 
 const getAll = async (req, res) => {
-   //#swagger.tags =['Users]
+  //#swagger.tags = ['Listings']
   try {
-    const result = await mongodb.getDatabase().db('').collection('listings').find().toArray();
+    const result = await mongodb.getDatabase().db().collection('listings').find().toArray();
     res.json(result);
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    sendErrorResponse(res, 500, 'Internal Server Error');
   }
 };
 
 const getSingle = async (req, res) => {
-   //#swagger.tags =['Users]
+  //#swagger.tags = ['Listings']
+  const listingId = new ObjectId(req.params.id);
   try {
-    const listingId = new ObjectId(req.params.id);
     const result = await mongodb.getDatabase().db().collection('listings').findOne({ _id: listingId });
     if (result) {
       res.json(result);
     } else {
-      res.status(404).json({ error: 'Listing not found' });
+      sendErrorResponse(res, 404, 'Listing not found');
     }
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    sendErrorResponse(res, 500, 'Internal Server Error');
   }
 };
 
 const createListing = async (req, res) => {
-   //#swagger.tags =['Users]
-  const listing = {
-    title: req.body.title,
-    location: req.body.location,
-    price: req.body.price,
-    bedrooms: req.body.bedrooms,
-    bathrooms: req.body.bathrooms,
-    area: req.body.area,
-  };
+  //#swagger.tags = ['Listings']
+  const { title, location, price, bedrooms, bathrooms, area } = req.body;
+  if (!title || !location || !price || !bedrooms || !bathrooms || !area) {
+    return sendErrorResponse(res, 400, 'Missing required fields');
+  }
+
+  const listing = { title, location, price, bedrooms, bathrooms, area };
 
   try {
     const response = await mongodb.getDatabase().db().collection('listings').insertOne(listing);
     if (response.acknowledged > 0) {
       res.status(204).send();
     } else {
-      res.status(500).json(response.error || 'Some error occurred during listing creation.');
+      sendErrorResponse(res, 500, response.error || 'Some error occurred during listing creation.');
     }
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    sendErrorResponse(res, 500, 'Internal Server Error');
   }
 };
 
 const updateListing = async (req, res) => {
-   //#swagger.tags =['Users]
+  //#swagger.tags = ['Listings']
   const listingId = new ObjectId(req.params.id);
-  const listing = {
-    title: req.body.title,
-    location: req.body.location,
-    price: req.body.price,
-    bedrooms: req.body.bedrooms,
-    bathrooms: req.body.bathrooms,
-    area: req.body.area,
-  };
+  const { title, location, price, bedrooms, bathrooms, area } = req.body;
+  if (!title || !location || !price || !bedrooms || !bathrooms || !area) {
+    return sendErrorResponse(res, 400, 'Missing required fields');
+  }
+
+  const updatedListing = { title, location, price, bedrooms, bathrooms, area };
 
   try {
-    const response = await mongodb.getDatabase().db().collection('listings').replaceOne({ _id: listingId }, listing);
+    const response = await mongodb.getDatabase().db().collection('listings').replaceOne({ _id: listingId }, updatedListing);
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } else {
-      res.status(500).json(response.error || 'Some error occurred during listing update.');
+      sendErrorResponse(res, 500, response.error || 'Some error occurred during listing update.');
     }
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    sendErrorResponse(res, 500, 'Internal Server Error');
   }
 };
 
 const deleteListing = async (req, res) => {
-   //#swagger.tags =['Users]
+  //#swagger.tags = ['Listings']
   const listingId = new ObjectId(req.params.id);
   try {
     const response = await mongodb.getDatabase().db().collection('listings').deleteOne({ _id: listingId });
     if (response.deletedCount > 0) {
       res.status(204).send();
     } else {
-      res.status(500).json(response.error || 'Some error occurred during listing deletion.');
+      sendErrorResponse(res, 500, response.error || 'Some error occurred during listing deletion.');
     }
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    sendErrorResponse(res, 500, 'Internal Server Error');
   }
-}; 
+};
 
 module.exports = {
   getAll,
