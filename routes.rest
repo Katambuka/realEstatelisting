@@ -1,17 +1,11 @@
-//GET all users:
+HTTP Method: GET
+URL: http://localhost:8000/listings/:id
 
-Get: http://localhost:8000/listingsHTTP/1.1 //Returns a JSON array of user objects.
+HTTP Method: POST
+URL: http://localhost:8000/listings
 
-//GET a single user by ID:
+HTTP Method: PUT
+URL: http://localhost:8000/listings/:id
 
-GET : http://localhost:8000/listings/HTTP/1.1
-
-//POST (Create) a new user:
-
-URL: http://localhost:8000/listings //HTTP Method: POST
-
-//PUT (Update) a user by ID:
-
-URL: http://localhost:8000/:id //HTTP Method: PUT
-
-//DELETE a user by ID: URL: http://localhost:8000/:id //HTTP Method: DELETE
+HTTP Method: DELETE
+URL: http://localhost:8000/listings/:id

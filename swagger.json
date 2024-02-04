@@ -21,12 +21,13 @@
         }
       }
     },
-    "/users/": {
+    "/listings/": {
       "get": {
-        "tags": [
-          "Listings"
-        ],
+        "tags": [],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -34,20 +35,54 @@
         }
       },
       "post": {
+        "tags": [],
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "location": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "bedrooms": {
+                  "example": "any"
+                },
+                "bathrooms": {
+                  "example": "any"
+                },
+                "area": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/users/{id}": {
+    "/listings/{id}": {
       "get": {
-        "tags": [
-          "Listings"
-        ],
+        "tags": [],
         "description": "",
+        "produces":[
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -59,10 +94,14 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "put": {
+        "tags": [],
         "description": "",
         "parameters": [
           {
@@ -73,12 +112,15 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        }
-      },
+        },
       "delete": {
+        "tags": [],
         "description": "",
         "parameters": [
           {
@@ -89,11 +131,9 @@
           }
         ],
         "responses": {
-          "default": {
+          "204": {
             "description": ""
           }
         }
       }
-    }
-  }
-}
+      }}}}
