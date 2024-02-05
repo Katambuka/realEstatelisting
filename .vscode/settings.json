@@ -1,6 +1,10 @@
 {
    "cSpell.words": [
+      "authmiddleware",
       "autogen",
-      "onrender"
+      "Findor",
+      "oidc",
+      "onrender",
+      "resave"
    ]
 }
