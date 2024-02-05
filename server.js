@@ -31,9 +31,9 @@ app
     next();
   })
   .use(cors({
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
   }))
-  .use('/', require('./routes'));
+  .use('/', require('./routes/index.js'));
 
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
@@ -43,7 +43,7 @@ passport.use(new GitHubStrategy({
 function(accessToken, refreshToken, profile, done) {
   // User.findOrCreate({ githubId: profile.id }, function (err, user) {
   //   return done(err, user);
-  // });
+  //});
   return done(null, profile);
 }
 ));
@@ -58,12 +58,9 @@ passport.deserializeUser((obj, done) => {
 
 app.get('/',(req,res) => {res.send(req.session.user !== undefined? `logged in as ${req.session.user.displayName}`:`logged out`)})
 
-app.get('/github/callback',
-  passport.authenticate('github', {
-    failureRedirect: '/api-docs',
-    session: false
-  }),
-  (req, res) => {
+app.get('/github/callback', passport.authenticate('github', {
+    failureRedirect: '/api-docs', session: false
+  }),(req, res) => {
     req.session.user = req.user;
     res.redirect('/');
   }
