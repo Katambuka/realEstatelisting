@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
   if (req.isAuthenticated()) {
     res.send(`Hello ${req.user.username}, welcome back!`);
   } else {
-    res.send('Hello Instructor, this is my week three and four project final projects on Real Estate Listings');
+    res.send('Hello Instructor, this is my week three and four final project on Real Estate Listings');
   }
 });
 
